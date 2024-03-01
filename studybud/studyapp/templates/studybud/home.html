@@ -3,11 +3,11 @@
 
 <style>
     .home-container {
-        
+
         display: grid;
         grid-template-columns: 1fr 3fr 1fr;
         gap: 20px;
-            
+
     }
 </style>
 
@@ -24,10 +24,10 @@
         </div>
 
         {% for topic in topics %}
-       <div>
-        <a href="{% url 'home'  %}?q={{topic.name}}">{{topic.name}}</a>
-        <br>
-       </div>
+        <div>
+            <a href="{% url 'home'  %}?q={{topic.name}}">{{topic.name}}</a>
+            <br>
+        </div>
         {% endfor %}
     </div>
 
@@ -39,7 +39,7 @@
         <div>
             {% for room in rooms %}
             <div>
-                {%if request.user == room.host %}<!--eliminates the content that is under the block if st only the condtion is not met-->
+                {% if request.user == room.host %}
                 <a href="{% url 'update-room' room.id %}">Edit</a>
                 <a href="{% url 'delete-room' room.id %}">Delete</a>
                 {% endif %}
@@ -56,19 +56,9 @@
     </div>
 
     <div>
-        <h3>Recent Activity</h3>
-        <hr>
-        {%for message in room_messages%}
-        <div>
-            <small>@{{message.user.username}} {{message.created|timesince}} ago.</small>
-            <small>replied to "{{message.room}}"</small>
 
-            <p>{{message}}</p>
+        {% include 'studybud/activity_component.html' %}
 
     </div>
-    
-    {%endfor%}
 
-</div>
-
-{% endblock %}
+    {% endblock %}
