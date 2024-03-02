@@ -124,7 +124,9 @@ def createRoom(request):
     if request.method == 'POST':
         form = RoomForm(request.POST)
         if form.is_valid():
-            form.save()
+            room=form.save(commit=False)
+            room.host = request.user
+            room.save()
             return redirect('home')#accessing the home page usong the name that was speciferd in the views page.
 
     context = {'form':form}
