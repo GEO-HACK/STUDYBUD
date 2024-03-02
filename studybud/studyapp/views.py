@@ -109,6 +109,15 @@ def room(request,pk):
     return render(request,'studybud/room.html',context)
 
 
+def userProfile(request,pk):
+    user = User.objects.get(id= pk)
+    topics = Topic.objects.all()
+    room_messages = user.message_set.all()
+    rooms = user.room_set.all()
+    context = {'user':user, 'rooms':rooms, 'topics':topics, 'room_messages':room_messages}
+    return render(request,'studybud/profile.html',context)
+
+
 @login_required(login_url='login')#prevent the user from acceessing the create button when they are not logged in.
 def createRoom(request):
     form = RoomForm()
