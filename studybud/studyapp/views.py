@@ -12,11 +12,6 @@ from .forms import RoomForm
 
 
 
-# rooms = [
-#     {'id':1,'name':'Room 1'},
-#     {'id':2,'name':'Room 2'},
-#     {'id':3,'name':'Room 3'},
-# ]
 def loginPage(request):
     page = 'login'
     if request.user.is_authenticated:
@@ -103,6 +98,7 @@ def room(request,pk):
             body= request.POST.get('body')
 
         )
+        
         room.participants.add(request.user)
         return redirect('room',pk = room.id)
     context = {'room':room, 'room_messages':room_messages,'participants':participants   }        
